@@ -13,12 +13,13 @@ module.exports = cds.service.impl(async function () {
         const { Cadastro } = this.entities;
         const VariavelID = req?.data?.ID;
         const VariavelCpf = req?.data?.cpf;
+        const VariavelNome = req?.data?.nome;
 
         if (!VariavelID) {
             return req.error(400, 'Não foi digitado o campo chave');            
         }
 
-        const cadastro = await SELECT.from(Cadastro).where({ ID: VariavelID,cpf: VariavelCpf })
+        const cadastro = await SELECT.from(Cadastro).where({ ID: VariavelID,cpf: VariavelCpf,nome: VariavelNome })
         return cadastro
     })
 

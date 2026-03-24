@@ -19,8 +19,16 @@ module.exports = cds.service.impl(async function () {
             return req.error(400, 'Não foi digitado o campo chave');            
         }
 
-        const cadastro = await SELECT.from(Cadastro).where({ ID: VariavelID,cpf: VariavelCpf,nome: VariavelNome })
-        return cadastro
+        const cadastro = await SELECT.from(Cadastro).where({ 
+            ID: VariavelID,
+            cpf: VariavelCpf,
+            nome: VariavelNome })
+        
+        if (!cadastro || cadastro.length === 0) {
+            return req.error(400, 'Dados não encontrados');            
+        } else {
+            return cadastro
+        }
     })
 
     this.after('RequisicaoCadastro', async (req) => { 
